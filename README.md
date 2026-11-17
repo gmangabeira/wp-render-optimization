@@ -1,5 +1,7 @@
 # How to Improve Your WordPress Speed Using Claude Code and Fable 5
 
+**Docs:** https://gmangabeira.github.io/wp-render-optimization/
+
 **A Claude Code skill that turns one brutal day of production WordPress optimization into a repeatable method.**
 
 Mobile PageSpeed **52 → 97 in one day**, on a real news portal with 1,000+ articles, AdSense, a page cache, and a free-tier CDN. Desktop went to 100. CLS to zero. This repo is the distilled method — written as a skill an AI coding agent (or a human apprentice) can actually follow.

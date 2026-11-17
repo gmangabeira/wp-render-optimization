@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WordPress Render Optimization: a Claude Code skill, PageSpeed 52 to 97</title>
+<meta name="description" content="An open-source Claude Code skill for WordPress PageSpeed and Core Web Vitals: a 7-layer model, a working loop and 10 production gotchas. Mobile PageSpeed went from 52 to 97 in one day.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Gabriel Mangabeira">
+<link rel="canonical" href="https://gmangabeira.github.io/wp-render-optimization/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WordPress Render Optimization: a Claude Code skill, PageSpeed 52 to 97">
+<meta property="og:description" content="An open-source Claude Code skill for WordPress PageSpeed and Core Web Vitals: a 7-layer model, a working loop and 10 production gotchas. Mobile PageSpeed went from 52 to 97 in one day.">
+<meta property="og:url" content="https://gmangabeira.github.io/wp-render-optimization/">
+<meta property="og:site_name" content="wp-render-optimization docs">
+<meta property="og:image" content="https://opengraph.githubassets.com/1/gmangabeira/wp-render-optimization">
+<meta property="og:image:alt" content="wp-render-optimization repository card">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WordPress Render Optimization: a Claude Code skill, PageSpeed 52 to 97">
+<meta name="twitter:description" content="An open-source Claude Code skill for WordPress PageSpeed and Core Web Vitals: a 7-layer model, a working loop and 10 production gotchas. Mobile PageSpeed went from 52 to 97 in one day.">
+<meta name="twitter:image" content="https://opengraph.githubassets.com/1/gmangabeira/wp-render-optimization">
+<meta name="theme-color" content="#0A2540">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "wp-render-optimization", "description": "An open-source Claude Code skill for WordPress PageSpeed and Core Web Vitals: a 7-layer model, a working loop and 10 production gotchas. Mobile PageSpeed went from 52 to 97 in one day.", "url": "https://gmangabeira.github.io/wp-render-optimization/", "codeRepository": "https://github.com/gmangabeira/wp-render-optimization", "license": "https://opensource.org/licenses/MIT", "keywords": ["wordpress", "pagespeed", "core web vitals", "claude code", "skill", "lcp", "cls", "cdn", "cache"], "author": {"@type": "Person", "name": "Gabriel Mangabeira", "url": "https://mangabeira.net", "sameAs": ["https://linkedin.com/in/mangabeira", "https://github.com/gmangabeira"]}}</script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./">wp-render-optimization<span>.</span></a>
+    <nav aria-label="Sections"><ul><li><a href="#model">How it works</a></li><li><a href="#loop">Method</a></li><li><a href="#traps">Gotchas</a></li><li><a href="#install">Install</a></li></ul></nav>
+    <a class="gh" href="https://github.com/gmangabeira/wp-render-optimization">View on GitHub</a>
+  </div>
+</header>
+<main>
+
+<section class="hero" style="border-top:0">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Claude Code skill, MIT</span>
+      <h1>WordPress Render Optimization</h1>
+      <p class="lede">A Claude Code skill that turns one day of production WordPress optimization into a repeatable method. Mobile PageSpeed <strong>52 to 97 in one day</strong>, on a real news portal with 1,000+ articles, AdSense, a page cache and a free-tier CDN.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://github.com/gmangabeira/wp-render-optimization"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg> View on GitHub</a>
+        <a class="btn" href="#install">Install</a>
+        <a class="btn" href="#traps">10 gotchas</a>
+      </div>
+      <div class="badges"><span class="badge g">7-layer model</span><span class="badge">10 production gotchas</span><span class="badge">Verification playbook</span><span class="badge">Plain markdown</span><span class="badge g">MIT License</span></div>
+    </div>
+    <div class="hero-card">
+      <p class="codehead">Mobile PageSpeed, one day</p>
+      <div style="padding:6px 0 0"><svg class="" viewBox="0 0 360 226" role="img" aria-label="Bar chart: mobile PageSpeed went from 52 before to 97 after, in one day" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat, system-ui, sans-serif"><title>Bar chart: mobile PageSpeed went from 52 before to 97 after, in one day</title><line x1="84.0" y1="20" x2="84.0" y2="170" stroke="rgba(139,155,173,.18)"/><text x="84.0" y="192" text-anchor="middle" font-size="11" font-weight="500" fill="#8B9BAD">0</text><line x1="138.0" y1="20" x2="138.0" y2="170" stroke="rgba(139,155,173,.18)"/><text x="138.0" y="192" text-anchor="middle" font-size="11" font-weight="500" fill="#8B9BAD">25</text><line x1="192.0" y1="20" x2="192.0" y2="170" stroke="rgba(139,155,173,.18)"/><text x="192.0" y="192" text-anchor="middle" font-size="11" font-weight="500" fill="#8B9BAD">50</text><line x1="246.0" y1="20" x2="246.0" y2="170" stroke="rgba(139,155,173,.18)"/><text x="246.0" y="192" text-anchor="middle" font-size="11" font-weight="500" fill="#8B9BAD">75</text><line x1="300.0" y1="20" x2="300.0" y2="170" stroke="rgba(139,155,173,.18)"/><text x="300.0" y="192" text-anchor="middle" font-size="11" font-weight="500" fill="#8B9BAD">100</text><text x="70" y="63" text-anchor="end" font-size="14" font-weight="700" fill="#F7FAFC">Before</text><rect x="84" y="36" width="112.32" height="42" rx="6" fill="#8B9BAD"/><text x="206.32" y="65" text-anchor="start" font-size="20" font-weight="800" fill="#D5DEE8">52</text><text x="70" y="133" text-anchor="end" font-size="14" font-weight="700" fill="#F7FAFC">After</text><rect x="84" y="106" width="209.52" height="42" rx="6" fill="#FFB800"/><text x="303.52" y="135" text-anchor="start" font-size="20" font-weight="800" fill="#FFB800">97</text><text x="192.0" y="214" text-anchor="middle" font-size="12" font-weight="500" fill="#8B9BAD">Mobile PageSpeed score (Lighthouse, 0 to 100)</text></svg></div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <p class="kicker">The case study behind it</p>
+    <h2>Final numbers, PageSpeed Insights</h2>
+    <p class="sub">Median of 3 runs on a warm edge, after a full hosting migration (shared LiteSpeed to Docker on a VPS) and a speed sprint, done end to end by Claude Code (Fable 5) with a human making the calls.</p>
+    <div class="grid g4">
+      <div class="card"><p class="stat">95-97</p><p class="stat-label">Mobile score (from 52)</p></div>
+      <div class="card"><p class="stat">98-100</p><p class="stat-label">Desktop score</p></div>
+      <div class="card"><p class="stat">0</p><p class="stat-label">CLS</p></div>
+      <div class="card"><p class="stat">0-30 ms</p><p class="stat-label">Total Blocking Time</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="model" class="alt">
+  <div class="wrap">
+    <p class="kicker">How it works: the mental model</p>
+    <h2>Seven layers that lie to each other</h2>
+    <p class="sub">Every WordPress speed tutorial gives the same tips: install a cache plugin, use WebP, lazy-load images. The site in this case study had all of that and still scored 52 on mobile. The problem is never one tip: every layer can undo or hide the work of the previous one. You optimize the HTML variant the real visitor receives, not "the site".</p>
+    <div class="diagram"><svg class="wide" viewBox="0 0 940 160" role="img" aria-label="The 7-layer WordPress rendering chain: DB, PHP and theme, page cache, origin, CDN edge, browser cache, parse and render. Each layer can undo or hide the work of the one before it" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat, system-ui, sans-serif"><title>The 7-layer WordPress rendering chain: DB, PHP and theme, page cache, origin, CDN edge, browser cache, parse and render. Each layer can undo or hide the work of the one before it</title><defs><marker id="lw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B9BAD"/></marker><marker id="lwg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FFB800"/></marker></defs><rect x="0" y="30" width="118" height="64" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="59.0" y="67.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">DB</text><text x="59.0" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#1FB6FF">1</text><polyline points="120,62 134,62" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lw)"/><rect x="136" y="30" width="118" height="64" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="195.0" y="67.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">PHP / theme</text><text x="195.0" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#1FB6FF">2</text><polyline points="256,62 270,62" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lw)"/><rect x="272" y="30" width="118" height="64" rx="12" fill="#0D3558" stroke="#FFB800" stroke-width="2"/><text x="331.0" y="67.0" text-anchor="middle" font-size="15" font-weight="700" fill="#FFB800">Page cache</text><text x="331.0" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#1FB6FF">3</text><polyline points="392,62 406,62" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lw)"/><rect x="408" y="30" width="118" height="64" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="467.0" y="67.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">Origin (nginx)</text><text x="467.0" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#1FB6FF">4</text><polyline points="528,62 542,62" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lw)"/><rect x="544" y="30" width="118" height="64" rx="12" fill="#0D3558" stroke="#FFB800" stroke-width="2"/><text x="603.0" y="67.0" text-anchor="middle" font-size="15" font-weight="700" fill="#FFB800">CDN edge</text><text x="603.0" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#1FB6FF">5</text><polyline points="664,62 678,62" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lw)"/><rect x="680" y="30" width="118" height="64" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="739.0" y="67.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">Browser cache</text><text x="739.0" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#1FB6FF">6</text><polyline points="800,62 814,62" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lw)"/><rect x="816" y="30" width="118" height="64" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="875.0" y="67.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">Parse / render</text><text x="875.0" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#1FB6FF">7</text><line x1="331" y1="98" x2="331" y2="114" stroke="#FF6B6B" stroke-width="1.5"/><text x="331" y="130" text-anchor="middle" font-size="12" font-weight="500" fill="#FF9B9B">saves HTML before the</text><text x="331" y="146" text-anchor="middle" font-size="12" font-weight="500" fill="#FF9B9B">image plugin rewrites it</text><line x1="603" y1="98" x2="603" y2="114" stroke="#FF6B6B" stroke-width="1.5"/><text x="603" y="130" text-anchor="middle" font-size="12" font-weight="500" fill="#FF9B9B">free tier caches one</text><text x="603" y="146" text-anchor="middle" font-size="12" font-weight="500" fill="#FF9B9B">variant for everyone</text></svg><svg class="tall" viewBox="0 0 340 452" role="img" aria-label="The 7-layer WordPress rendering chain, stacked view" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat, system-ui, sans-serif"><title>The 7-layer WordPress rendering chain, stacked view</title><defs><marker id="lt" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B9BAD"/></marker><marker id="ltg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FFB800"/></marker></defs><rect x="40" y="10" width="260" height="48" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="170.0" y="39.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">DB</text><text x="22" y="40" text-anchor="middle" font-size="13" font-weight="800" fill="#1FB6FF">1</text><polyline points="170,60 170,74" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lt)"/><rect x="40" y="76" width="260" height="48" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="170.0" y="105.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">PHP / theme</text><text x="22" y="106" text-anchor="middle" font-size="13" font-weight="800" fill="#1FB6FF">2</text><polyline points="170,126 170,140" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lt)"/><rect x="40" y="142" width="260" height="48" rx="12" fill="#0D3558" stroke="#FFB800" stroke-width="2"/><text x="170.0" y="171.0" text-anchor="middle" font-size="15" font-weight="700" fill="#FFB800">Page cache</text><text x="22" y="172" text-anchor="middle" font-size="13" font-weight="800" fill="#1FB6FF">3</text><polyline points="170,192 170,206" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lt)"/><rect x="40" y="208" width="260" height="48" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="170.0" y="237.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">Origin (nginx)</text><text x="22" y="238" text-anchor="middle" font-size="13" font-weight="800" fill="#1FB6FF">4</text><polyline points="170,258 170,272" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lt)"/><rect x="40" y="274" width="260" height="48" rx="12" fill="#0D3558" stroke="#FFB800" stroke-width="2"/><text x="170.0" y="303.0" text-anchor="middle" font-size="15" font-weight="700" fill="#FFB800">CDN edge</text><text x="22" y="304" text-anchor="middle" font-size="13" font-weight="800" fill="#1FB6FF">5</text><polyline points="170,324 170,338" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lt)"/><rect x="40" y="340" width="260" height="48" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="170.0" y="369.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">Browser cache</text><text x="22" y="370" text-anchor="middle" font-size="13" font-weight="800" fill="#1FB6FF">6</text><polyline points="170,390 170,404" fill="none" stroke="#8B9BAD" stroke-width="1.6" marker-end="url(#lt)"/><rect x="40" y="406" width="260" height="48" rx="12" fill="#0D3558" stroke="rgba(139,155,173,.45)" stroke-width="1.2"/><text x="170.0" y="435.0" text-anchor="middle" font-size="15" font-weight="700" fill="#F7FAFC">Parse / render</text><text x="22" y="436" text-anchor="middle" font-size="13" font-weight="800" fill="#1FB6FF">7</text></svg></div>
+  </div>
+</section>
+
+<section id="loop">
+  <div class="wrap grid g2" style="gap:40px">
+    <div>
+      <p class="kicker">The working loop</p>
+      <h2>Never skip a step</h2>
+      <p class="sub" style="margin-bottom:24px">Measure correctly: lab is not field, never measure on a cold edge, never trust a single sample. Then locate which element is the LCP, which LCP phase dominates, and which element caused the CLS.</p>
+      <div class="steps"><div class="step"><h3>Measure</h3></div><div class="step"><h3>Locate the element / phase</h3></div><div class="step"><h3>Hypothesis</h3></div><div class="step"><h3>Verify the bytes</h3></div><div class="step"><h3>Change 1 thing</h3></div><div class="step"><h3>Purge everything</h3></div><div class="step"><h3>Re-measure</h3></div></div>
+    </div>
+    <div>
+      <p class="kicker">The order of levers</p>
+      <h2>Highest gain, lowest risk first</h2>
+      <p class="sub" style="margin-bottom:24px">TTFB under 150 ms means hosting is not your problem.</p>
+      <div class="steps"><div class="step"><h3>TTFB / HTML caching</h3></div><div class="step"><h3>Critical rendering path</h3></div><div class="step"><h3>The LCP element</h3></div><div class="step"><h3>Fonts</h3></div><div class="step"><h3>Below-the-fold images</h3></div><div class="step"><h3>DOM (only if over 818 elements)</h3></div><div class="step"><h3>Hosting: the last lever, not the first</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="traps" class="alt">
+  <div class="wrap">
+    <p class="kicker">The trap catalog</p>
+    <h2>10 production-earned gotchas</h2>
+    <p class="sub">All hit in production, the ones no tutorial mentions.</p>
+    <div class="grid g2"><div class="card"><p class="stat" style="font-size:28px">01</p><h3 style="margin-top:10px">Free-tier CDNs cache one variant per URL</h3><p>No device split, no Accept negotiation. HTML-level <code>&lt;picture&gt;</code> is the only cache-safe WebP path.</p></div><div class="card"><p class="stat" style="font-size:28px">02</p><h3 style="margin-top:10px">Mobile cache off poisons the CDN</h3><p>Mobile visitors get the raw page and the CDN serves it to everyone.</p></div><div class="card"><p class="stat" style="font-size:28px">03</p><h3 style="margin-top:10px">Optimizers trample each other</h3><p>The page cache saves its buffer before the image plugin rewrites <code>&lt;picture&gt;</code>.</p></div><div class="card"><p class="stat" style="font-size:28px">04</p><h3 style="margin-top:10px">Exclusion lists collide</h3><p><code>data-no-lazy</code> in the image plugin's list: the hero escaped lazy-load and silently lost WebP.</p></div><div class="card"><p class="stat" style="font-size:28px">05</p><h3 style="margin-top:10px">URL-keyed caches never show up in staging</h3><p>Remove-Unused-CSS stores CSS per production URL. Regenerate before the cutover.</p></div><div class="card"><p class="stat" style="font-size:28px">06</p><h3 style="margin-top:10px">Inherited zone config bites years later</h3><p>A legacy "Cache Everything" rule + 1-year browser TTL froze browsers on old HTML.</p></div><div class="card"><p class="stat" style="font-size:28px">07</p><h3 style="margin-top:10px"><code>rsync --delete</code> erases generated artifacts</h3><p>Stray <code>.webp</code> files vanish on deploy. Every derived asset must live in the repo.</p></div><div class="card"><p class="stat" style="font-size:28px">08</p><h3 style="margin-top:10px">The config says one thing, the bytes another</h3><p>Always grep the served HTML. One grep beats ten admin screens.</p></div><div class="card"><p class="stat" style="font-size:28px">09</p><h3 style="margin-top:10px">Field metrics have 28 days of inertia</h3><p>CrUX takes up to a month to reflect a fix. Write down the fix date.</p></div><div class="card"><p class="stat" style="font-size:28px">10</p><h3 style="margin-top:10px">Ads are the mobile ceiling</h3><p>Eager AdSense costs 20 to 30 lab points. Delaying it is a revenue decision: run it as an experiment.</p></div></div>
+  </div>
+</section>
+
+<section id="villains">
+  <div class="wrap">
+    <p class="kicker">What the method caught</p>
+    <h2>The villains, by layer</h2>
+    <div class="tbl"><table><thead><tr><th>Villain</th><th>Symptom</th><th>Layer</th></tr></thead><tbody><tr><td>Legacy CDN rule: "Cache Everything" + 1-year browser TTL</td><td>Visitors frozen on old HTML</td><td>CDN / browser</td></tr><tr><td>Page cache mobile setting OFF</td><td>Mobile got the raw page and poisoned the CDN for everyone</td><td>Page cache to CDN</td></tr><tr><td><code>data-no-lazy</code> in the image plugin's exclusion list</td><td>Hero image silently lost WebP</td><td>Plugin collision</td></tr><tr><td>Preload pointing to a different file than the <code>&lt;img&gt;</code> picked</td><td>LCP image downloaded twice</td><td>Render path</td></tr><tr><td>Logo <code>&lt;img&gt;</code> without width/height</td><td>Whole page shifted: CLS 0.216</td><td>Theme</td></tr><tr><td>Remove-Unused-CSS keyed to production URLs</td><td>Perfect staging, broken production homepage</td><td>Page cache</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<section id="install" class="alt">
+  <div class="wrap grid" style="gap:40px">
+    <div style="min-width:0">
+      <p class="kicker">Install (Claude Code)</p>
+      <h2>Drop the skill into any project</h2>
+      <p class="codehead">bash</p><pre><code>mkdir -p .claude/skills/wp-render-optimization
+curl -o .claude/skills/wp-render-optimization/SKILL.md \
+  https://raw.githubusercontent.com/gmangabeira/wp-render-optimization/main/SKILL.md</code></pre>
+      <p>Then ask Claude Code things like:</p>
+      <ul class="pill-list"><li>"My WordPress LCP is 6s on mobile, diagnose it"</li><li>"Audit my site's cache headers"</li><li>"Why does PageSpeed mobile score way lower than desktop?"</li></ul>
+      <p class="note" style="margin-top:16px">No Claude Code? <a href="https://github.com/gmangabeira/wp-render-optimization/blob/main/SKILL.md">SKILL.md</a> is plain markdown and works as a checklist for humans. The skill assumes WordPress + a page cache (WP Rocket or similar) + a CDN (Cloudflare or similar), with curl, a PageSpeed Insights API key and SSH access.</p>
+    </div>
+    <div style="min-width:0">
+      <p class="kicker">Verification playbook</p>
+      <h2>Run after every change</h2>
+      <p class="codehead">bash</p><pre><code># 1. Is the served variant the optimized one? (repeat with a mobile UA and via --resolve at the origin)
+curl -s https://SITE/ -A &quot;Mozilla/5.0 (Macintosh)&quot; | grep -c &quot;rocketlazyloadscript&quot;   # delay active?
+curl -s https://SITE/ | grep -o &#x27;&lt;img fetchpriority[^&gt;]*&#x27; | head -1                     # hero eager?
+
+# 2. Cache headers correct?
+curl -sI https://SITE/                       # HTML: short max-age (&lt;=600), HIT/MISS at the CDN
+curl -sI https://SITE/path/static.css        # static: max-age=31536000, immutable
+curl -sI https://SITE/wp-json/wp/v2/posts    # API: DYNAMIC/BYPASS (never cached)
+
+# 3. Purge -&gt; warm -&gt; measure 3x -&gt; median (never a single sample, never a cold edge)</code></pre>
+      <div class="card"><h3>Acceptance checklist</h3><ul><li>LCP 2.5 s or less, mobile lab</li><li>CLS = 0, TBT under 200 ms</li><li>HTML 600 s or less browser TTL, static 1 year immutable</li><li>REST and admin bypassed, purge-on-publish tested</li><li>Identical page for mobile and desktop, no double download of the LCP image</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="never">
+  <div class="wrap grid g2" style="gap:32px;align-items:center">
+    <blockquote class="quote">Declare victory on one sample? Never. Ad-auction variance is plus or minus 20 mobile points.</blockquote>
+    <div>
+      <p class="kicker">Never do this</p>
+      <ul class="pill-list"><li>Optimize without a saved baseline</li><li>Change two things between measurements</li><li>Trust staging for URL-keyed behavior</li><li>Long browser TTL on HTML</li><li>Delay a consent/CMP script</li><li>Switch hosting while TTFB is healthy</li></ul>
+      <p class="note" style="margin-top:18px">The method was extracted from a real migration transcript. More of my writing is on <a href="https://mangabeira.net/publications">my publications page</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<aside class="author" aria-label="About the author">
+  <div class="wrap">
+    <div>
+      <p class="kicker">Author</p>
+      <h3>Gabriel Mangabeira</h3>
+      <p>Two-time Olympian turned growth marketer for AI and Web3. I built this project and keep it open source under the MIT License.</p>
+    </div>
+    <div class="links">
+      <a class="btn" href="https://mangabeira.net" rel="author">mangabeira.net</a>
+      <a class="btn" href="https://linkedin.com/in/mangabeira" rel="me">LinkedIn</a>
+      <a class="btn" href="https://github.com/gmangabeira" rel="me">GitHub</a>
+    </div>
+  </div>
+</aside>
+
+<footer><div class="wrap"><span>MIT License. Source and issues on <a href="https://github.com/gmangabeira/wp-render-optimization">GitHub</a>.</span><span>Docs for the open-source project wp-render-optimization.</span></div></footer>
+</body>
+</html>
